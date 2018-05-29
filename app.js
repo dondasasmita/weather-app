@@ -18,12 +18,24 @@ const address = encodeURIComponent(argv.a)
 //require geocode module
 const geocode = require('./geocode/geocode')
 
+//require weather module
+const weather = require('./weather/weather')
 
 //call geocode function to get lat/long of the address
 geocode.geocodeAddress(address, (errorMessage , results) => {
     if (errorMessage){
         console.log(errorMessage)
     } else if (results){
-        console.log(JSON.stringify(results, undefined, 2))
+        console.log(`Location : ${results.address} \n`)
+        //get weather function and passingin the latitude and longitude from the results object in geocode
+        weather.getWeather(results.latitude,results.longitude, (errorMessage, weatherResults) => {
+            if (errorMessage){
+                console.log(errorMessage)
+            } else {
+                console.log(`Weather Summary  : ${weatherResults.summary}\n =====`)
+                console.log(`High Temperature : ${weatherResults.temperature_high} \n =====`)
+                console.log(`Low Temperature  : ${weatherResults.temperature_low}\n =====`)
+            }
+        })
     }
 })
