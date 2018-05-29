@@ -6,7 +6,7 @@ const config = require('../config')
 //function to get lat/long from mapquest api
 const geocodeAddress = (address, callback) => {
     request({ 
-        url: `https://www.mapquestapi.com/geocoding/v1/address?key=${config.apiKey}&inFormat=kvp&outFormat=json&location=${address}`,
+        url: `https://www.mapquestapi.com/geocoding/v1/address?key=${config.locationAPIKey}&inFormat=kvp&outFormat=json&location=${address}`,
         json: true
     },(error,response,body) => {
         if (error){
@@ -23,6 +23,7 @@ const geocodeAddress = (address, callback) => {
     })
 }
 
+//exporting geocodeAddress function
 module.exports = {
     geocodeAddress
 }
